@@ -8,7 +8,11 @@ namespace OctoFaker.Database
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
-            Database.EnsureCreated();
+            if (Database.EnsureCreated())
+            {
+                SeedDatabase();
+            }
+            
         }
 
         public DbSet<CountryCode> CountryCodes { get; set; }
@@ -22,10 +26,21 @@ namespace OctoFaker.Database
             modelBuilder.Entity<PersonSecondName>().ToTable("PersonSecondNames");
             modelBuilder.Entity<PersonLastName>().ToTable("PersonLastNames");
 
-            modelBuilder.Entity<CountryCode>().HasData(new CountryCode { Id = 1, LetterCode = "RU", Name = "Россия" });
+            //modelBuilder.Entity<CountryCode>().HasData(new CountryCode { Id = 1, LetterCode = "RU", Name = "Россия" });
             base.OnModelCreating(modelBuilder);
 
-
+            
+        }
+        private void SeedDatabase()
+        {
+            var sql = File.ReadAllText("AdditionalData/Countries/Countries.sql");
+            Database.ExecuteSqlRaw(sql);
+            sql = File.ReadAllText("AdditionalData/Person/FirstNames.sql");
+            Database.ExecuteSqlRaw(sql);
+            sql = File.ReadAllText("AdditionalData/Countries/LastNames.sql");
+            Database.ExecuteSqlRaw(sql);
+            sql = File.ReadAllText("AdditionalData/Countries/SecondNames.sql");
+            Database.ExecuteSqlRaw(sql);
         }
         public override void Dispose()
         {
