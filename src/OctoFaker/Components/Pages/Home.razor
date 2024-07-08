@@ -1,0 +1,18 @@
+﻿@page "/"
+@using OctoFaker.Database.Interfaces
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@code {
+    [Inject] public ICountryController CountryController { get; set; }
+    protected override async Task OnInitializedAsync()
+    {
+
+        await base.OnInitializedAsync();
+
+    }
+}
