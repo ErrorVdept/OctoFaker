@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using OctoFaker.Database.Interfaces
+@using System.Diagnostics
 
 <PageTitle>Home</PageTitle>
 
@@ -8,11 +9,22 @@
 Welcome to your new app.
 
 @code {
-    [Inject] public ICountryController CountryController { get; set; }
+    [Inject] public IPersonFirstNameController PersonFirstNameController { get; set; } = default!;
     protected override async Task OnInitializedAsync()
     {
 
         await base.OnInitializedAsync();
+        List<string> data = new List<string>();
+        for (int i = 0; i < 25; i++)
+        {
+            var a = await PersonFirstNameController.GetRandomPersonFirstName();
+            data.Add(a.Id.ToString() + " " + a.FirstName);
+            
+        }
 
+       
+
+
+        
     }
 }

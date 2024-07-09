@@ -37,9 +37,9 @@ namespace OctoFaker.Database
             Database.ExecuteSqlRaw(sql);
             sql = File.ReadAllText("AdditionalData/Person/FirstNames.sql");
             Database.ExecuteSqlRaw(sql);
-            sql = File.ReadAllText("AdditionalData/Countries/LastNames.sql");
+            sql = File.ReadAllText("AdditionalData/Person/LastNames.sql");
             Database.ExecuteSqlRaw(sql);
-            sql = File.ReadAllText("AdditionalData/Countries/SecondNames.sql");
+            sql = File.ReadAllText("AdditionalData/Person/SecondNames.sql");
             Database.ExecuteSqlRaw(sql);
         }
         public override void Dispose()

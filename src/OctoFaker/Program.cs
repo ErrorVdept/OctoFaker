@@ -4,6 +4,9 @@ using OctoFaker.Components;
 using OctoFaker.Database;
 using OctoFaker.Database.Controllers;
 using OctoFaker.Database.Interfaces;
+using OctoFaker.DataComponents.Interfaces;
+using OctoFaker.DataComponents.Services;
+
 
 namespace OctoFaker
 {
@@ -22,8 +25,16 @@ namespace OctoFaker
             builder.Services.AddDbContextFactory<DataContext>(opt =>
                 opt.UseSqlite($"Data Source=OctoFaker.db"));
 
+            // DATABASE SERVICES
+            builder.Services.AddTransient<IPersonFirstNameController, PersonFirstNameController>();
+            builder.Services.AddTransient<IPersonSecondNameController, PersonSecondNameController>();
+            builder.Services.AddTransient<IPersonLastNameController, PersonLastNameController>();
 
-            builder.Services.AddTransient<ICountryController, CountryController>();
+
+            //GENERATOR SERVICES
+            builder.Services.AddTransient<IBirthDateGeneratorService, BirthDateGeneratorService>();
+
+
 
 
             var app = builder.Build();
